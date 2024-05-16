@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>16.02.2024</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="startseite.html"><img src="haus-icon.jpg" alt="Haus Icon" class="icon"></a>
+            <ul>
+                <li><a href="Was-sagen.html">Was ich dir sagen will</a></li>
+                <li><a href="Erinnerungen.html">Erinnerungen</a></li>
+                <li><a href="Family.html">Die kleine Familie</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <h1>Was ich dir sagen will..</h1>
+        
+        <!-- Box1 für Kommentare -->
+        <div class="box1">
+            <h2>Unsere Gedanken</h2>
+            <div class="dropdowns">
+                <!-- Dropdown-Menü für Autor -->
+                <select id="authorSelect">
+                    <option value="" disabled selected>Wer bist du?</option>
+                    <option value="Luca">Luca</option>
+                    <option value="Niny">Niny</option>
+                </select>
+                <!-- Dropdown-Menü für Kommentarart -->
+                <select id="commentTypeSelect">
+                    <option value="" disabled selected>Welche Emotion findest du bei diesem Kommentar?</option>
+                    <option value="Liebe">Liebe</option>
+                    <option value="Dankbarkeit">Dankbarkeit</option>
+                    <option value="Humor">Humor</option>
+                    <option value="Tiefgründigkeit">Tiefgründigkeit</option>
+                </select>
+            </div>
+            <!-- Texteingabefeld für Kommentar -->
+            <textarea id="commentInput" placeholder="Schreibe hier deine Gedanken auf (max. 600 Zeichen)..."></textarea>
+            <!-- Button zum Posten des Kommentars -->
+            <button onclick="addComment()">Jetzt posten</button>
+        </div>
+
+        <div id="commentOverview">
+            <h2>Unsere Gedanken</h2>
+            <!-- Hier werden die Kommentare angezeigt -->
+        </div>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Meine Webseite</p>
+    </footer>
+
+
+ 
+    <script>
+        // Funktion zum Laden vorhandener Kommentare
+        function loadComments() {
+            var commentOverview = document.getElementById("commentOverview");
+            commentOverview.innerHTML = ''; // Alle vorhandenen Kommentare löschen, bevor neue geladen werden
+            var comments = JSON.parse(localStorage.getItem("comments")) || [];
+            comments.forEach(function(comment) {
+                displayComment(commentOverview, comment);
+            });
+        }
+
+        // Laden vorhandener Kommentare beim Start der Seite
+        loadComments();
+
+        // Funktion zum Hinzufügen eines neuen Kommentars
+        function addComment() {
+            var author = document.getElementById("authorSelect").value;
+            var commentText = document.getElementById("commentInput").value;
+            var commentType = document.getElementById("commentTypeSelect").value;
+            var timestamp = new Date().toLocaleString();
+
+            var commentOverview = document.getElementById("commentOverview");
+
+            var comment = {
+                author: author,
+                text: commentText,
+                type: commentType,
+                timestamp: timestamp
+            };
+
+            displayComment(commentOverview, comment);
+
+            // Speichern des Kommentars in localStorage
+            var comments = JSON.parse(localStorage.getItem("comments")) || [];
+            comments.push(comment);
+            localStorage.setItem("comments", JSON.stringify(comments));
+
+            // Clear input fields
+            document.getElementById("commentInput").value = "";
+
+            // Hide reply button after commenting
+            document.querySelector('.reply-btn').style.display = 'none';
+        }
+
+        // Funktion zum Löschen eines Kommentars
+        function deleteComment(commentDiv, comment) {
+            var confirmDelete = confirm("Möchtest du diesen Kommentar wirklich löschen?");
+            if (confirmDelete) {
+                // Löschen des Kommentars aus der Anzeige und dem localStorage
+                var parentElement = commentDiv.parentElement;
+                parentElement.removeChild(commentDiv);
+                var comments = JSON.parse(localStorage.getItem("comments")) || [];
+                var index = comments.findIndex(function(c) {
+                    return c.text === comment.text && c.author === comment.author && c.timestamp === comment.timestamp;
+                });
+                if (index !== -1) {
+                    comments.splice(index, 1);
+                    localStorage.setItem("comments", JSON.stringify(comments));
+                }
+            }
+        }
+
+        // Funktion zum Anzeigen eines einzelnen Kommentars
+        function displayComment(parentElement, comment) {
+            var commentDiv = document.createElement("div");
+            commentDiv.classList.add("comment");
+            commentDiv.classList.add(comment.type.toLowerCase()); // Fügt die entsprechende Kommentarart-Klasse hinzu
+
+            var commentContent = document.createElement("p");
+            commentContent.textContent = comment.text + " - " + comment.author + " - " + comment.timestamp;
+
+            var deleteBtn = document.createElement("button");
+            deleteBtn.textContent = "Löschen";
+            deleteBtn.classList.add("delete-btn");
+            deleteBtn.onclick = function() {
+                deleteComment(commentDiv, comment);
+                loadComments(); // Nach dem Löschen eines Kommentars die Kommentare neu laden
+            };
+
+            var responseBtn = document.createElement("button");
+            responseBtn.textContent = "Antworten";
+            responseBtn.classList.add("response-btn");
+            responseBtn.onclick = function() {
+                addResponse(commentDiv, comment);
+            };
+
+            commentDiv.appendChild(commentContent);
+            commentDiv.appendChild(deleteBtn);
+            commentDiv.appendChild(responseBtn);
+            parentElement.appendChild(commentDiv);
+        }
+
+        // Funktion zum Hinzufügen einer Antwort auf einen Kommentar
+        function addResponse(commentDiv, comment) {
+            var responseInput = document.createElement("textarea");
+            responseInput.classList.add("response-input");
+            responseInput.setAttribute("placeholder", "Verfasse hier einen Kommentar");
+
+            var emojiContainer = document.createElement("div");
+            emojiContainer.classList.add("response-emojis");
+
+            // Hier könntest du die Emojis definieren und einfügen, z.B. als Array von Unicode-Zeichen
+            var emojis = ["😊", "❤️", "😂", "👍"];
+            emojis.forEach(function(emoji) {
+                var emojiBtn = document.createElement("button");
+                emojiBtn.classList.add("emoji-btn");
+                emojiBtn.textContent = emoji;
+                emojiBtn.onclick = function() {
+                    responseInput.value += emoji; // Füge das Emoji in das Textfeld ein
+                };
+                emojiContainer.appendChild(emojiBtn);
+            });
+
+            var responseSubmitBtn = document.createElement("button");
+            responseSubmitBtn.textContent = "Antworten";
+            responseSubmitBtn.classList.add("response-submit-btn");
+            responseSubmitBtn.onclick = function() {
+                var responseText = responseInput.value.trim();
+                if (responseText.length > 0 && responseText.length <= 600) {
+                    var responseContent = document.createElement("p");
+                    responseContent.textContent = "Antwort: " + responseText;
+                    commentDiv.appendChild(responseContent);
+                } else {
+                    alert("Die Antwort muss zwischen 1 und 600 Zeichen lang sein!");
+                }
+            };
+
+            commentDiv.appendChild(responseInput);
+            commentDiv.appendChild(emojiContainer);
+            commentDiv.appendChild(responseSubmitBtn);
+        }
+    </script>
+</body>
+</html>

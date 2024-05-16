@@ -1,0 +1,298 @@
+/* Allgemeine Stile */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #D4D4D4; 
+}
+
+header {
+    background-color: #000000;
+    color: #fff;
+    padding: 10px 0;
+}
+
+.menu-icon {
+    display: inline-block;
+    cursor: pointer;
+}
+
+.menu-icon div {
+    width: 25px;
+    height: 3px;
+    background-color: #333;
+    margin: 5px 0;
+}
+
+.side-menu {
+    display: none;
+    position: fixed;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 250px;
+    background-color: #D4D4D4;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    box-sizing: border-box;
+    z-index: 1000;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.side-menu ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.side-menu li {
+    margin: 10px 0;
+}
+
+.side-menu .submenu {
+    margin-left: 20px;
+}
+
+.side-menu .close-button {
+    display: block;
+    margin: 20px auto 0;
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    margin-top: auto;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.icon {
+    width: 30px;
+    height: 30px;
+}
+
+main {
+    padding: 20px;
+}
+
+footer {
+    background-color: #000000;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+}
+
+
+/*Was ich dir noch sagen wollte...*/
+
+/* Allgemeine Styles */
+
+.box1 {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.dropdowns {
+    margin-bottom: 10px;
+}
+
+.dropdowns select {
+    margin-right: 10px;
+}
+
+#commentInput {
+    width: calc(100% - 42px); /* 20px padding + 2px border * 2 */
+    height: 6em; /* 6 Zeilen auf A4 Blatt */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    resize: none;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.comment {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 40px; /*Abstand der Kommentarboxen*/
+    padding: 15px;
+    position: relative;
+    transition: height 0.3s;
+}
+
+.comment p {
+    margin: 0 0 10px;
+}
+
+.comment-overview {
+    position: fixed; 
+    bottom: 10px; 
+    left: 10px; 
+}
+
+.comment .delete-btn {
+    background-color: #ff4d4d;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    padding: 5px 10px;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    display: none; /* Ausblenden des Lösch-Buttons standardmäßig */
+}
+
+.comment:hover .delete-btn {
+    display: block; /* Einblenden des Lösch-Buttons beim Überfahren mit der Maus */
+}
+
+.comment .emoji-btn {
+    margin-right: 5px; /* Abstand zwischen den Emojis */
+}
+
+.comment .emoji-container {
+    background-color: #f2f2f2; 
+    border: 1px solid #000; 
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 10px; /* Abstand zum Antworteingabefeld */
+    display: none; /*standardmäßig ausblenden*/
+    position: absolute; 
+    bottom: -50px; /*Positionierung*/
+    left: 0px;
+    width: 100%; 
+}
+
+.comment .emoji-btn {
+    margin: 3px;
+    height: 40px;
+    margin-right: 10px; /* Abstand zwischen den Emojis */
+    font-size: 18px;
+}
+.comment .response-btn {
+    background-color: #ccc;
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    color: #333;
+    cursor: pointer;
+    padding: 10px 20px;
+    position: absolute;
+    bottom: -30px; /*Positionierung*/
+    left: 0px;
+    margin-top: 30px; /* Abstands zum nächsten Block*/
+    display: none; 
+    width: 100%; 
+}
+
+.comment .response-btn textarea {
+    width: 477px;
+    height: 35px; 
+    padding: 10px; 
+    box-sizing: border-box; 
+    margin-top: 20px; 
+}
+
+.comment:hover .response-btn {
+    display: block;  /*anzeigen wenn Maus über der Kommentarbox fährt*/
+}
+
+.response-btn:focus-within .emoji-container {
+    display: flex; /*anzeigen wenn Antwortfeld oder anderes element darin fokussiert wird*/
+
+}
+
+/* Liebevolles Theme */
+.love-theme, .liebe {
+    background-color: #ffc0cb; /* Pastellrot */
+    border: 1px solid #ff6666; /* Helleres Rot */
+    padding: 10px;
+    border-radius: 5px;
+    position: relative;
+}
+
+.love-theme::before, .liebe::before {
+    content: "\2665"; /* Herzsymbol */
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 24px;
+    color: #ff6666; /* Rote Farbe */
+}
+
+/* Dankbarkeits-Theme */
+.gratitude-theme, .dankbarkeit {
+    background-color: #fffacd; /* Zartes Gelb */
+    border: 1px solid #ffd700; /* Helleres Gelb */
+    padding: 10px;
+    border-radius: 5px;
+    /* Hintergrundbild hier hinzufügen */
+}
+
+/* Humorvolles Theme */
+.humor-theme, .humor {
+    background-color: #add8e6; /* Zartes Blau */
+    border: 1px solid #87ceeb; /* Helleres Blau */
+    padding: 10px;
+    border-radius: 5px;
+    /* Lustiges Hintergrundmuster hier hinzufügen */
+}
+
+/* Tiefgründiges Theme */
+.deep-theme, .tiefgründigkeit {
+    background-color: #90ee90; /* Zartes Grün */
+    border: 1px solid #7cfc00; /* Helleres Grün */
+    padding: 10px;
+    border-radius: 5px;
+    /* Inspirierendes Zitat als Hintergrundbild oder Header hinzufügen */
+}
+
+.box1 {
+    margin-bottom: 20px;
+}
+
+.dropdowns select {
+    margin-right: 10px;
+}
+
+.comment {
+    margin-bottom: 20px;
+}
+
+.comment p {
+    margin: 0;
+}

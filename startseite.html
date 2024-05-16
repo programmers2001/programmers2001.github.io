@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>16.02.2024</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="startseite.html"><img src="haus-icon.jpg" alt="Haus Icon" class="icon"></a>
+            <div class="menu-icon"  onclick="toggleMenu()">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+            </div>
+        </nav>
+    </header>
+
+    <div id="side-menu" class="side-menu">
+        <ul>
+            <li><strong>Unsere Beziehung</strong></li>
+            <ul class="submenu">
+                <li><a href="Ziele.html">Unsere Ziele</a></li>
+                <li><a href="Was-sagen.html">Was ich dir noch sagen wollte</a></li>
+                <li><a href="Erinnerungen.html">Erinnerungen</a></li>
+            </ul>
+            <li><strong>Über uns</strong></li>
+            <ul class="submenu">
+                <li><a href="Luca.html">Luca</a></li>
+                <li><a href="Niny.html">Niny</a></li>
+                <li><a href="Family.html">Blacky und Luna</a></li>
+            </ul>
+        </ul>
+
+        <button class="close-button" onclick="toggleMenu()">Hier klicken zum schließen</button>
+         
+     </div>
+
+    <main>
+        <h1>Startseite</h1>
+        <p>Hier ist der Inhalt für Kategorie 1.</p>
+    </main>
+    <footer>
+        <p>&copy; 2024 Meine Webseite</p>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            var menu = document.getElementById('side-menu');
+            if (menu.style.display === 'block') {
+                menu.style.display = 'none';
+            } else {
+                menu.style.display = 'block';
+            }
+        }
+    </script>
+
+</body>
+</html>
